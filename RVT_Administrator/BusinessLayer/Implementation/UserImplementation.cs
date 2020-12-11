@@ -4,6 +4,9 @@ using BusinessLayer.Services;
 using Newtonsoft.Json;
 using NLog;
 using RVT_DataLayer.Entities;
+using RVTLibrary.Algorithms;
+using RVTLibrary.Models.AuthUser;
+using RVTLibrary.Models.LoadBalancer;
 using RVTLibrary.Models.UserIdentity;
 using System;
 using System.Data.Entity;
@@ -65,11 +68,11 @@ namespace BusinessLayer.Implementation
 
             var response = await client.PostAsync("api/Regist", content);
 
-            var regLbResponse = new RegLbResponse();
+            var regLbResponse = new RegLBResponse();
             try
             {
                 var registration_resp = await response.Content.ReadAsStringAsync();
-                regLbResponse = JsonConvert.DeserializeObject<RegLbResponse>(registration_resp);
+                regLbResponse = JsonConvert.DeserializeObject<RegLBResponse>(registration_resp);
             }
             catch (AggregateException e)
             {
@@ -106,5 +109,34 @@ namespace BusinessLayer.Implementation
                 return new RegistrationResponse { Status = false, Message = "Registration | Error! User IP: " + registration.Ip_address + "IDNP: " + registration.IDNP + " can't be registered." };
             }
         }
+        internal async Task<AuthResponse> AuthAction(AuthMessage auth)
+        {
+            try
+            {
+                var pass = LoginHelper.HashGen(auth.VnPassword);
+                var idvn = IDVN_Gen.HashGen(auth.VnPassword + auth.IDNP);
+
+                using (var db = new SFBD_AccountsContext())
+                {
+                    var verify = db.IdvnAccounts.FirstOrDefaultAsync(x =>
+                      x.Idvn == idvn &&
+                      x.VnPassword == pass);
+
+                    if (verify == null)
+                    {
+                        return new AuthResponse { Status = false, Message = "Auth | Error! IDNP or password are not correct." };
+                    }
+                    else
+                        return new AuthResponse { Status = true, IDVN = idvn, Message = "Auth | Authentication Successfull!" };
+                }
+            }
+            catch(Exception e)
+            {
+                _logger.Error("Auth | Error! " + e.Message);
+                return new AuthResponse { Status = false, Message = "Auth | "+e.Message };
+            }
+        }
+
+
     }
 }

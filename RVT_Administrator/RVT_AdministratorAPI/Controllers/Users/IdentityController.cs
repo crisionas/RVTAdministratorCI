@@ -2,6 +2,7 @@
 using BusinessLayer.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using RVTLibrary.Models.AuthUser;
 using RVTLibrary.Models.UserIdentity;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace RVT_AdministratorAPI.Controllers.Users
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class IdentityController : ControllerBase
     {
@@ -23,6 +24,7 @@ namespace RVT_AdministratorAPI.Controllers.Users
         }
 
         [HttpPost]
+        [ActionName("Registration")]
         public async Task<ActionResult<RegistrationResponse>> RegistrationAct([FromBody]RegistrationMessage registration)
         {
             if (ModelState.IsValid)
@@ -32,6 +34,17 @@ namespace RVT_AdministratorAPI.Controllers.Users
             }
             else return BadRequest();
         }
-
+        
+        [HttpPost]
+        [ActionName("Auth")]
+        public async Task<ActionResult<AuthResponse>> AuthAct([FromBody]AuthMessage auth)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await user.Auth(auth);
+                return result;
+            }
+            else return BadRequest();
+        }
     }
 }
