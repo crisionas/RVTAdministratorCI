@@ -1,0 +1,11 @@
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\bin\Debug\netcoreapp3.1\RVT_DataLayer.deps.json
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\bin\Debug\netcoreapp3.1\RVT_DataLayer.runtimeconfig.json
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\bin\Debug\netcoreapp3.1\RVT_DataLayer.runtimeconfig.dev.json
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\bin\Debug\netcoreapp3.1\RVT_DataLayer.dll
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\bin\Debug\netcoreapp3.1\RVT_DataLayer.pdb
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\obj\Debug\netcoreapp3.1\RVT_DataLayer.AssemblyInfoInputs.cache
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\obj\Debug\netcoreapp3.1\RVT_DataLayer.AssemblyInfo.cs
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\obj\Debug\netcoreapp3.1\RVT_DataLayer.csproj.CoreCompileInputs.cache
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\obj\Debug\netcoreapp3.1\RVT_DataLayer.dll
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\obj\Debug\netcoreapp3.1\RVT_DataLayer.pdb
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\obj\Debug\netcoreapp3.1\RVT_DataLayer.genruntimeconfig.cache

@@ -1,0 +1,8 @@
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVTLibrary\bin\Debug\netcoreapp3.1\RVTLibrary.deps.json
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVTLibrary\bin\Debug\netcoreapp3.1\RVTLibrary.dll
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVTLibrary\bin\Debug\netcoreapp3.1\RVTLibrary.pdb
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVTLibrary\obj\Debug\netcoreapp3.1\RVTLibrary.AssemblyInfoInputs.cache
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVTLibrary\obj\Debug\netcoreapp3.1\RVTLibrary.AssemblyInfo.cs
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVTLibrary\obj\Debug\netcoreapp3.1\RVTLibrary.csproj.CoreCompileInputs.cache
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVTLibrary\obj\Debug\netcoreapp3.1\RVTLibrary.dll
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVTLibrary\obj\Debug\netcoreapp3.1\RVTLibrary.pdb
