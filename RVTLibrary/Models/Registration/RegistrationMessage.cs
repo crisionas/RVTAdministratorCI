@@ -25,6 +25,7 @@ namespace RVTLibrary.Models.UserIdentity
         public string Phone_Number { get; set; }
         
         public string Email { get; set; }
+        public string Region { get; set; }
         
         public DateTime RegisterDate { get; set; }
     }

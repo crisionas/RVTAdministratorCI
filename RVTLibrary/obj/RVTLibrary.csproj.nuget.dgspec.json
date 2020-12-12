@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVTLibrary\\RVTLibrary.csproj": {}
+    "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVT_Administrator\\RVTLibrary\\RVTLibrary.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVTLibrary\\RVTLibrary.csproj": {
+    "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVT_Administrator\\RVTLibrary\\RVTLibrary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVTLibrary\\RVTLibrary.csproj",
+        "projectUniqueName": "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVT_Administrator\\RVTLibrary\\RVTLibrary.csproj",
         "projectName": "RVTLibrary",
-        "projectPath": "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVTLibrary\\RVTLibrary.csproj",
+        "projectPath": "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVT_Administrator\\RVTLibrary\\RVTLibrary.csproj",
         "packagesPath": "C:\\Users\\Artyrik\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVTLibrary\\obj\\",
+        "outputPath": "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVT_Administrator\\RVTLibrary\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "D:\\Microsoft\\Xamarin\\NuGet\\",

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BrvNjfBvpeMEM5ykd1VxbcQCTGlUKCMZFTN+b/rQteD9KoRFKr9cw27YYDXyv8IhD59tobQoeD0r5rK19KFTcQ==",
+  "dgSpecHash": "gKOLNhLl1k1RBI5m4gRHzFahp2915LNubOYddDYB86phiGTwO4l3ZRUUhlfiWDQ0TRvlgjW0mSuYm6aQNnm39A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVTLibrary\\RVTLibrary.csproj",
+  "projectFilePath": "C:\\Users\\Artyrik\\Desktop\\RVTProjectCI\\RVT_Administrator\\RVTLibrary\\RVTLibrary.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
