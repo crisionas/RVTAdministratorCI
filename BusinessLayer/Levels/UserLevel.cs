@@ -2,6 +2,7 @@
 using BusinessLayer.Interfaces;
 using RVTLibrary.Models.AuthUser;
 using RVTLibrary.Models.UserIdentity;
+using RVTLibrary.Models.Vote;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +19,11 @@ namespace BusinessLayer.Levels
         public Task<AuthResponse> Auth(AuthMessage auth)
         {
             return AuthAction(auth);
+        }
+
+        public Task<VoteResponse> Vote(VoteMessage vote)
+        {
+            return VoteAction(vote);
         }
     }
 }

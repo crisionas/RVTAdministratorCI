@@ -1,4 +1,3 @@
-C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\bin\Debug\netcoreapp3.1\RVTLibrary.dll
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csprojAssemblyReference.cache
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.AssemblyInfoInputs.cache
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.AssemblyInfo.cs
@@ -8,10 +7,11 @@ C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\bin\Debug\
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.runtimeconfig.dev.json
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.dll
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\bin\Debug\netcoreapp3.1\BusinessLayer.pdb
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\bin\Debug\netcoreapp3.1\RVTLibrary.dll
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\bin\Debug\netcoreapp3.1\RVT_DataLayer.dll
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\bin\Debug\netcoreapp3.1\RVTLibrary.pdb
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\bin\Debug\netcoreapp3.1\RVT_DataLayer.pdb
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.csproj.CopyComplete
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.dll
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.pdb
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\obj\Debug\netcoreapp3.1\BusinessLayer.genruntimeconfig.cache
-C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\bin\Debug\netcoreapp3.1\RVT_DataLayer.dll
-C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\BusinessLayer\bin\Debug\netcoreapp3.1\RVT_DataLayer.pdb

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using RVTLibrary.Models.AuthUser;
 using RVTLibrary.Models.UserIdentity;
+using RVTLibrary.Models.Vote;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,19 @@ namespace RVT_AdministratorAPI.Controllers.Users
                 return result;
             }
             else return BadRequest();
+        }
+
+        [HttpPost]
+        [ActionName("Vote")]
+        public async Task<ActionResult<VoteResponse>> VoteAct([FromBody] VoteMessage vote)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await user.Vote(vote);
+                return result;
+            }
+            else
+                return BadRequest();
         }
     }
 }

@@ -11,10 +11,14 @@ namespace RVT_DataLayer.Entities
         public string VnPassword { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
+        public string Gender { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public int? Region { get; set; }
         public DateTime? RegisterDate { get; set; }
         public string IpAddress { get; set; }
         public string StatusNumber { get; set; }
 
         public virtual VoteStatus IdvnNavigation { get; set; }
+        public virtual Region RegionNavigation { get; set; }
     }
 }

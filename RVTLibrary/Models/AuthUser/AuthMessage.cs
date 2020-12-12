@@ -8,5 +8,7 @@ namespace RVTLibrary.Models.AuthUser
     {
         public string IDNP { get; set; }
         public string VnPassword { get; set; }
+        public string Ip_address { get; set; }
+        public DateTime Time { get; set; }
     }
 }

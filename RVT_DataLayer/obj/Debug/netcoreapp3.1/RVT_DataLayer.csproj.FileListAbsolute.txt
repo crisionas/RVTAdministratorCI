@@ -9,3 +9,4 @@ C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\obj\Debug\
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\obj\Debug\netcoreapp3.1\RVT_DataLayer.dll
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\obj\Debug\netcoreapp3.1\RVT_DataLayer.pdb
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\obj\Debug\netcoreapp3.1\RVT_DataLayer.genruntimeconfig.cache
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_DataLayer\obj\Debug\netcoreapp3.1\RVT_DataLayer.csprojAssemblyReference.cache

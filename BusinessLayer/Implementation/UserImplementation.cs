@@ -16,6 +16,8 @@ using System.Net.Http.Headers;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+using RVTLibrary.Models.Vote;
+using System.Linq;
 
 namespace BusinessLayer.Implementation
 {
@@ -33,7 +35,7 @@ namespace BusinessLayer.Implementation
             var fiscregistration = mapper.Map<FiscDatum>(registration);
             fiscregistration.BirthDate = registration.Birth_date;
             //Verify if registration registration are valid.
-            using (var db = new SFBD_AccountsContext())
+            using (var db = new SFBDContext())
             {
                 try
                 {
@@ -57,7 +59,7 @@ namespace BusinessLayer.Implementation
 
             //Send registration to LoadBalancer
             var content = new StringContent(JsonConvert.SerializeObject(registration), Encoding.UTF8, "application/json");
-            var clientCertificate =new X509Certificate2(Path.Combine(@"..\Certs", "administrator.pfx"), "ar4iar4i"
+            var clientCertificate = new X509Certificate2(Path.Combine(@"..\Certs", "administrator.pfx"), "ar4iar4i"
                 , X509KeyStorageFlags.Exportable);
 
             var handler = new HttpClientHandler();
@@ -86,7 +88,7 @@ namespace BusinessLayer.Implementation
                 ///-------SEND EMAIL WITH PASSWORD------
                 EmailSender.Send(registration.Email, regLbResponse.VnPassword);
 
-                using (var db = new SFBD_AccountsContext())
+                using (var db = new SFBDContext())
                 {
                     var account = new IdvnAccount();
                     account.Idvn = regLbResponse.IDVN;
@@ -106,7 +108,7 @@ namespace BusinessLayer.Implementation
             }
             else
             {
-                _logger.Error("Registration | "+registration);
+                _logger.Error("Registration | " + registration);
                 return new RegistrationResponse { Status = false, Message = "Registration | Error! User IP: " + registration.Ip_address + "IDNP: " + registration.IDNP + " can't be registered." };
             }
         }
@@ -117,27 +119,94 @@ namespace BusinessLayer.Implementation
                 var pass = LoginHelper.HashGen(auth.VnPassword);
                 var idvn = IDVN_Gen.HashGen(auth.VnPassword + auth.IDNP);
 
-                using (var db = new SFBD_AccountsContext())
+                using (var db = new SFBDContext())
                 {
                     var verify = db.IdvnAccounts.FirstOrDefaultAsync(x =>
                       x.Idvn == idvn &&
                       x.VnPassword == pass);
 
-                    if (verify == null)
+                    if (verify.Result == null)
                     {
-                        return new AuthResponse { Status = false, Message = "Auth | Error! IDNP or password are not correct." };
+                        return new AuthResponse { Status = false, Message = "Auth | Error! IDNP sau parola nu este corecta." };
                     }
                     else
                         return new AuthResponse { Status = true, IDVN = idvn, Message = "Auth | Authentication Successfull!" };
+
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 _logger.Error("Auth | Error! " + e.Message);
-                return new AuthResponse { Status = false, Message = "Auth | "+e.Message };
+                return new AuthResponse { Status = false, Message = "Auth | " + e.Message };
             }
         }
+        internal async Task<VoteResponse> VoteAction(VoteMessage vote)
+        {
+            using (var bd = new SFBDContext())
+            {
+                var account = bd.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
+                if (account == null)
+                    return new VoteResponse
+                    {
+                        VoteStatus = false,
+                        Message = "Vote | Utilizatorul nu există, este necesar să vă înregistrați.",
+                        ProcessedTime = DateTime.Now
+                    };
+                else
+                {
+                    var vote_state = bd.VoteStatuses.FirstOrDefault(m => m.Idvn == vote.IDVN);
+                    if (vote_state != null)
+                        return new VoteResponse
+                        {
+                            VoteStatus = false,
+                            Message = "Vote | Ați votat deja, nu puteți vota de două ori.",
+                            ProcessedTime = DateTime.Now
+                        };
+
+                    var party = bd.Parties.FirstOrDefault(m => m.Idpart == vote.Party);
+                    var user = bd.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
+                    var chooser = new ChooserLBMessage
+                    {
+                        IDVN = user.Idvn,
+                        Gender = user.Gender,
+                        Birth_date = user.BirthDate,
+                        PartyChoosed = vote.Party,
+                        Region = user.Region,
+                        Vote_date = DateTime.Now
+                    };
+
+                    var content = new StringContent(JsonConvert.SerializeObject(chooser), Encoding.UTF8, "application/json");
+
+                    var clientCertificate =
+        new X509Certificate2(Path.Combine(@"..\Certs", "administrator.pfx"), "ar4iar4i"
+        , X509KeyStorageFlags.Exportable);
+                    // LOAD BALANCER ADD REQUEST
 
 
+
+
+                    var handler = new HttpClientHandler();
+                    handler.ClientCertificates.Add(clientCertificate);
+                    handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                    var client = new HttpClient(handler);
+                    client.BaseAddress = new Uri("https://localhost:44322/");
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var response = client.PostAsync("api/Vote", content);
+                    try
+                    {
+                       // var data_send = await response.Result.Content.ReadAsStringAsync();
+                        return new VoteResponse { VoteStatus = true, Message = "Vote | Votul a fost înregistrat."};
+                    }
+                    catch (AggregateException e)
+                    {
+                        return new VoteResponse { VoteStatus = false, Message = "Vote | Error! " + e.Message };
+                    }
+
+                }
+            }
+
+
+        }
     }
 }

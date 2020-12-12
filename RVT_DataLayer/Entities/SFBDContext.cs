@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace RVT_DataLayer.Entities
 {
-    public partial class SFBD_AccountsContext : DbContext
+    public partial class SFBDContext : DbContext
     {
-        public SFBD_AccountsContext()
+        public SFBDContext()
         {
         }
 
-        public SFBD_AccountsContext(DbContextOptions<SFBD_AccountsContext> options)
+        public SFBDContext(DbContextOptions<SFBDContext> options)
             : base(options)
         {
         }
@@ -29,7 +29,7 @@ namespace RVT_DataLayer.Entities
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost;Database=SFBD_Accounts;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=SFBD;Trusted_Connection=True;");
             }
         }
 
@@ -103,18 +103,25 @@ namespace RVT_DataLayer.Entities
 
             modelBuilder.Entity<IdvnAccount>(entity =>
             {
-                entity.HasKey(e => e.Idvn)
-                    .HasName("PK__idvn_acc__B87C0A442B488B7E");
+                entity.HasKey(e => e.Idvn);
 
-                entity.ToTable("idvn_accounts");
+                entity.ToTable("Idvn_accounts");
 
                 entity.Property(e => e.Idvn)
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("IDVN");
 
+                entity.Property(e => e.BirthDate)
+                    .HasColumnType("date")
+                    .HasColumnName("Birth_date");
+
                 entity.Property(e => e.Email)
                     .HasMaxLength(255)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Gender)
+                    .HasMaxLength(25)
                     .IsUnicode(false);
 
                 entity.Property(e => e.IpAddress)
@@ -145,7 +152,12 @@ namespace RVT_DataLayer.Entities
                     .WithOne(p => p.IdvnAccount)
                     .HasForeignKey<IdvnAccount>(d => d.Idvn)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_idvn_accounts_VoteStatus");
+                    .HasConstraintName("FK_Idvn_accounts_VoteStatus");
+
+                entity.HasOne(d => d.RegionNavigation)
+                    .WithMany(p => p.IdvnAccounts)
+                    .HasForeignKey(d => d.Region)
+                    .HasConstraintName("FK_Idvn_accounts_Regions");
             });
 
             modelBuilder.Entity<Party>(entity =>
@@ -175,8 +187,7 @@ namespace RVT_DataLayer.Entities
 
             modelBuilder.Entity<VoteStatus>(entity =>
             {
-                entity.HasKey(e => e.Idvn)
-                    .HasName("PK__VoteStat__B87C0A44044B386E");
+                entity.HasKey(e => e.Idvn);
 
                 entity.ToTable("VoteStatus");
 
