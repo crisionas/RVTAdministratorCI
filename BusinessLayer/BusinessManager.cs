@@ -12,5 +12,9 @@ namespace BusinessLayer
         {
             return new UserLevel();
         }
+        public IResults GetResults()
+        {
+            return new ResultsLevel();
+        }
     }
 }
