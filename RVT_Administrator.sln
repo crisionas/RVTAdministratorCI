@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RVT_DataLayer", "RVT_DataLa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RVTLibrary", "RVTLibrary\RVTLibrary.csproj", "{0091696B-1A54-45C7-9D3B-409BD7FE7BF0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RVT_AdministratorAPITests", "RVT_AdministratorAPITests\RVT_AdministratorAPITests.csproj", "{E5AEB828-B687-45A4-BD65-383D948EBDED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{0091696B-1A54-45C7-9D3B-409BD7FE7BF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0091696B-1A54-45C7-9D3B-409BD7FE7BF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0091696B-1A54-45C7-9D3B-409BD7FE7BF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5AEB828-B687-45A4-BD65-383D948EBDED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5AEB828-B687-45A4-BD65-383D948EBDED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5AEB828-B687-45A4-BD65-383D948EBDED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5AEB828-B687-45A4-BD65-383D948EBDED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

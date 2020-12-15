@@ -14,7 +14,7 @@ namespace RVT_AdministratorAPI.Controllers.Users
     [ApiController]
     public class ResultsController : ControllerBase
     {
-        IResults results;
+        IStatistics results;
         public ResultsController()
         {
             var bl = new BusinessManager();
@@ -22,9 +22,18 @@ namespace RVT_AdministratorAPI.Controllers.Users
         }
 
         [HttpPost]
-        public async Task<ActionResult<ResultsResponse>> ResultsAll([FromBody]string id)
+        [ActionName("Results")]
+        public async Task<ActionResult<ResultsResponse>> ResultsAll([FromBody] string id)
         {
             return await results.Results(id);
         }
+
+        [HttpPost]
+        [ActionName("Statistics")]
+        public async Task<ActionResult<StatisticsResponse>> StatisticsAll([FromBody] string id)
+        {
+            return await results.Statistics(id);
+        }
+
     }
 }

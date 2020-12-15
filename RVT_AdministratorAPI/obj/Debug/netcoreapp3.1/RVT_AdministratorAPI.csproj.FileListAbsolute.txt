@@ -1,8 +1,3 @@
-C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\RVT_AdministratorAPI.csprojAssemblyReference.cache
-C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\RVT_AdministratorAPI.AssemblyInfoInputs.cache
-C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\RVT_AdministratorAPI.AssemblyInfo.cs
-C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\RVT_AdministratorAPI.csproj.CoreCompileInputs.cache
-C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\RVT_AdministratorAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\bin\Debug\netcoreapp3.1\RVT_AdministratorAPI.exe
@@ -72,6 +67,11 @@ C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\bin
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\bin\Debug\netcoreapp3.1\BusinessLayer.pdb
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\bin\Debug\netcoreapp3.1\RVTLibrary.pdb
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\bin\Debug\netcoreapp3.1\RVT_DataLayer.pdb
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\RVT_AdministratorAPI.csprojAssemblyReference.cache
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\RVT_AdministratorAPI.AssemblyInfoInputs.cache
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\RVT_AdministratorAPI.AssemblyInfo.cs
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\RVT_AdministratorAPI.csproj.CoreCompileInputs.cache
+C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\RVT_AdministratorAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\staticwebassets\RVT_AdministratorAPI.StaticWebAssets.Manifest.cache
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\staticwebassets\RVT_AdministratorAPI.StaticWebAssets.xml
 C:\Users\Artyrik\Desktop\RVTProjectCI\RVT_Administrator\RVT_AdministratorAPI\obj\Debug\netcoreapp3.1\scopedcss\bundle\RVT_AdministratorAPI.styles.css
