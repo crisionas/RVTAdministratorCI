@@ -166,6 +166,10 @@ namespace RVT_DataLayer.Entities
 
                 entity.Property(e => e.Idpart).HasColumnName("IDPart");
 
+                entity.Property(e => e.Color)
+                    .HasMaxLength(255)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.Party1)
                     .IsRequired()
                     .HasMaxLength(50)

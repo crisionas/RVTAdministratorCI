@@ -195,7 +195,7 @@ namespace BusinessLayer.Implementation
                     var response = client.PostAsync("api/Vote", content);
                     try
                     {
-                       // var data_send = await response.Result.Content.ReadAsStringAsync();
+                       var data_send = await response.Result.Content.ReadAsStringAsync();
                         return new VoteResponse { VoteStatus = true, Message = "Vote | Votul a fost înregistrat."};
                     }
                     catch (AggregateException e)

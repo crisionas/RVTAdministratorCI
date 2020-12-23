@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RVT_AdministratorAPI.Controllers.Users
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class ResultsController : ControllerBase
     {

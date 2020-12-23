@@ -31,6 +31,8 @@ namespace BusinessLayer.Implementation
                     name = (from st in context.Regions
                             where st.Idreg == Int32.Parse(id)
                             select st.Region1).Single().ToString();
+
+
                     //-----------------Number of parties to count------------------
                     for (int i = 1; i <= context.Parties.Count(); i++)
                     {
@@ -40,6 +42,10 @@ namespace BusinessLayer.Implementation
                                        where st.PartyChoosed == party.IDParty &&
                                        st.RegionChoosed == Int32.Parse(id)
                                        select st).Count();
+                        party.Name = (from st in context.Parties
+                                      where st.Idpart == party.IDParty
+                                      select st.Party1).ToString();
+
                         parties.Add(party);
                     }
                     //-----------------Population------------------
@@ -68,6 +74,8 @@ namespace BusinessLayer.Implementation
                     {
                         var party = new VoteStatistics();
                         party.IDParty = i;
+                        var Name = context.Parties.Where(x => x.Idpart == party.IDParty).SingleOrDefault()?.Party1;
+
                         party.Votes = (from st in context.Blocks
                                        where st.PartyChoosed == party.IDParty
                                        select st).Count();
@@ -118,6 +126,11 @@ namespace BusinessLayer.Implementation
                     name = (from st in context.Regions
                             where st.Idreg == Int32.Parse(id)
                             select st.Region1).Single().ToString();
+
+                    //-----------------Population------------------
+                    population = (from st in context.FiscData
+                                  where st.Region == name
+                                  select st.Idnp).Count();
 
                     //-----------------Count voters by ages------------------
                     //18-25
@@ -182,6 +195,10 @@ namespace BusinessLayer.Implementation
                 {
                     name = "All";
 
+                    //-----------------Population------------------
+                    population = (from st in context.FiscData
+                                  select st.Idnp).Count();
+
                     //-----------------Count voters by ages------------------
                     //18-25
                     var age18 = new AgeStatistics();
@@ -234,17 +251,16 @@ namespace BusinessLayer.Implementation
                                      where st.Gender == "Female" 
                                      select st).Count();
                 }
-
-
             }
 
             return new StatisticsResponse
             {
-                Name=name,
-                AgeVoters=agesList,
-                GenderStatistics=gender,
-                Time=DateTime.Now,
-                Voters=votants
+                Name = name,
+                AgeVoters = agesList,
+                GenderStatistics = gender,
+                Time = DateTime.Now,
+                Voters = votants,
+                Population = population
             };
         }
     }

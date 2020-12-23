@@ -14,6 +14,7 @@ namespace RVT_DataLayer.Entities
 
         public int Idpart { get; set; }
         public string Party1 { get; set; }
+        public string Color { get; set; }
 
         public virtual ICollection<Block> Blocks { get; set; }
     }
