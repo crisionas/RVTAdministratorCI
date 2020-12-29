@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Interfaces;
+﻿using BusinessLayer.Implementation;
+using BusinessLayer.Interfaces;
 using BusinessLayer.Levels;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,11 @@ namespace BusinessLayer
 {
     public class BusinessManager
     {
+        public IResponseHandler GetResponseActions()
+        {
+            return new ResponseHandler();
+        }
+
         public IUser GetUser()
         {
             return new UserLevel();

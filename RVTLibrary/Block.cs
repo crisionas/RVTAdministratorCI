@@ -7,16 +7,15 @@ namespace RVTLibrary
 {
     public class Block
     {
-        private IAlgorithm _algorithm = AlgorithmHelper.GetDefaultAlgorithm();
-        public int ID { get; set; }
-        public DateTime CreatedOn { get; set; }
+        public int BlockId { get; set; }
+        public DateTime? CreatedOn { get; set; }
         public string Hash { get; set; }
         public string PreviousHash { get; set; }
-        public int Party_Choosed { get; set; }
-        public int Region_Choosed { get; set; }
-        public string ChooserName { get; set; }
-        public string Status { get; set; }
+        public int? PartyChoosed { get; set; }
+        public int? RegionChoosed { get; set; }
+        public string Gender { get; set; }
+        public int? YearBirth { get; set; }
+        public string Idbd { get; set; }
 
-     
     }
 }
