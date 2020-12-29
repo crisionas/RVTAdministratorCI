@@ -11,6 +11,11 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Admin\" />
+    <Folder Include="AppServices\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.1" />
   </ItemGroup>
 
   <ItemGroup>
