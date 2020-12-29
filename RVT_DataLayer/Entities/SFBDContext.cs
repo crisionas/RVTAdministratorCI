@@ -29,7 +29,7 @@ namespace RVT_DataLayer.Entities
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost;Database=SFBD;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=DESKTOP-GDI15RS\\SQLEXPRESS; Database=SFBD;Trusted_Connection=True;");
             }
         }
 
@@ -51,22 +51,15 @@ namespace RVT_DataLayer.Entities
                     .HasMaxLength(1000)
                     .IsUnicode(false);
 
+                entity.Property(e => e.Idbd)
+                    .HasMaxLength(1000)
+                    .IsUnicode(false)
+                    .HasColumnName("IDBD");
+
                 entity.Property(e => e.PreviousHash)
                     .IsRequired()
                     .HasMaxLength(1000)
                     .IsUnicode(false);
-
-                entity.HasOne(d => d.PartyChoosedNavigation)
-                    .WithMany(p => p.Blocks)
-                    .HasForeignKey(d => d.PartyChoosed)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Blocks_Parties");
-
-                entity.HasOne(d => d.RegionChoosedNavigation)
-                    .WithMany(p => p.Blocks)
-                    .HasForeignKey(d => d.RegionChoosed)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Blocks_Regions");
             });
 
             modelBuilder.Entity<FiscDatum>(entity =>
@@ -147,17 +140,6 @@ namespace RVT_DataLayer.Entities
                     .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("vn_password");
-
-                entity.HasOne(d => d.IdvnNavigation)
-                    .WithOne(p => p.IdvnAccount)
-                    .HasForeignKey<IdvnAccount>(d => d.Idvn)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Idvn_accounts_VoteStatus");
-
-                entity.HasOne(d => d.RegionNavigation)
-                    .WithMany(p => p.IdvnAccounts)
-                    .HasForeignKey(d => d.Region)
-                    .HasConstraintName("FK_Idvn_accounts_Regions");
             });
 
             modelBuilder.Entity<Party>(entity =>
@@ -165,10 +147,6 @@ namespace RVT_DataLayer.Entities
                 entity.HasKey(e => e.Idpart);
 
                 entity.Property(e => e.Idpart).HasColumnName("IDPart");
-
-                entity.Property(e => e.Color)
-                    .HasMaxLength(255)
-                    .IsUnicode(false);
 
                 entity.Property(e => e.Party1)
                     .IsRequired()

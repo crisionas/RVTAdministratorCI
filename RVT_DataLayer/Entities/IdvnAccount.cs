@@ -17,8 +17,5 @@ namespace RVT_DataLayer.Entities
         public DateTime? RegisterDate { get; set; }
         public string IpAddress { get; set; }
         public string StatusNumber { get; set; }
-
-        public virtual VoteStatus IdvnNavigation { get; set; }
-        public virtual Region RegionNavigation { get; set; }
     }
 }

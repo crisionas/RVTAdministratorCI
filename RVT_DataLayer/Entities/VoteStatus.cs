@@ -9,7 +9,5 @@ namespace RVT_DataLayer.Entities
     {
         public string Idvn { get; set; }
         public string VoteState { get; set; }
-
-        public virtual IdvnAccount IdvnAccount { get; set; }
     }
 }
