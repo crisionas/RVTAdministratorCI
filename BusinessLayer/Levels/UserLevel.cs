@@ -21,7 +21,7 @@ namespace BusinessLayer.Levels
             return AuthAction(auth);
         }
 
-        public Task<VoteResponse> Vote(VoteMessage vote)
+        public Task<VoteCoreResponse> Vote(VoteMessage vote)
         {
             return VoteAction(vote);
         }

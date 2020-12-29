@@ -140,32 +140,40 @@ namespace BusinessLayer.Implementation
                 return new AuthResponse { Status = false, Message = "Auth | " + e.Message };
             }
         }
-        internal async Task<VoteResponse> VoteAction(VoteMessage vote)
+        internal async Task<VoteCoreResponse> VoteAction(VoteMessage vote)
         {
             using (var bd = new SFBDContext())
             {
                 var account = bd.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
                 if (account == null)
-                    return new VoteResponse
+                    return new VoteCoreResponse
                     {
-                        VoteStatus = false,
-                        Message = "Vote | Utilizatorul nu există, este necesar să vă înregistrați.",
-                        ProcessedTime = DateTime.Now
+                        VoteResponse = new VoteResponse
+                        {
+                            VoteStatus = false,
+                            Message = "Vote | Utilizatorul nu există, este necesar să vă înregistrați.",
+                            ProcessedTime = DateTime.Now
+                        },
+                        LBMessage = null
                     };
                 else
                 {
                     var vote_state = bd.VoteStatuses.FirstOrDefault(m => m.Idvn == vote.IDVN);
                     if (vote_state != null)
-                        return new VoteResponse
+                        return new VoteCoreResponse
                         {
-                            VoteStatus = false,
-                            Message = "Vote | Ați votat deja, nu puteți vota de două ori.",
-                            ProcessedTime = DateTime.Now
+                            VoteResponse = new VoteResponse
+                            {
+                                VoteStatus = false,
+                                Message = "Vote | Ați votat deja, nu puteți vota de două ori.",
+                                ProcessedTime = DateTime.Now
+                            },
+                            LBMessage = null
                         };
 
                     var party = bd.Parties.FirstOrDefault(m => m.Idpart == vote.Party);
                     var user = bd.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
-                    var chooser = new ChooserLBMessage
+                    var chooser = new ChooserLbMessage
                     {
                         IDVN = user.Idvn,
                         Gender = user.Gender,
@@ -175,34 +183,42 @@ namespace BusinessLayer.Implementation
                         Vote_date = DateTime.Now
                     };
 
-                    var content = new StringContent(JsonConvert.SerializeObject(chooser), Encoding.UTF8, "application/json");
-
-                    var clientCertificate =
-        new X509Certificate2(Path.Combine(@"..\Certs", "administrator.pfx"), "ar4iar4i"
-        , X509KeyStorageFlags.Exportable);
+                    return new VoteCoreResponse
+                    {
+                        LBMessage = chooser,
+                        VoteResponse = new VoteResponse
+                        {
+                            VoteStatus = true,
+                            Message = "Votul s-a transmis la validare.",
+                            ProcessedTime = DateTime.Now
+                        }
+                    };
+                    //var content = new StringContent(JsonConvert.SerializeObject(chooser), Encoding.UTF8, "application/json");
+                    //            var clientCertificate =
+                    //new X509Certificate2(Path.Combine(@"..\Certs", "administrator.pfx"), "ar4iar4i"
+                    //, X509KeyStorageFlags.Exportable);
                     // LOAD BALANCER ADD REQUEST
 
 
 
 
-                    var handler = new HttpClientHandler();
-                    handler.ClientCertificates.Add(clientCertificate);
-                    handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-                    var client = new HttpClient(handler);
-                    client.BaseAddress = new Uri("https://localhost:44322/");
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    //var handler = new HttpClientHandler();
+                    //handler.ClientCertificates.Add(clientCertificate);
+                    //handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                    //var client = new HttpClient(handler);
+                    //client.BaseAddress = new Uri("https://localhost:44322/");
+                    //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    var response = client.PostAsync("api/Vote", content);
-                    try
-                    {
-                       var data_send = await response.Result.Content.ReadAsStringAsync();
-                        return new VoteResponse { VoteStatus = true, Message = "Vote | Votul a fost înregistrat."};
-                    }
-                    catch (AggregateException e)
-                    {
-                        return new VoteResponse { VoteStatus = false, Message = "Vote | Error! " + e.Message };
-                    }
-
+                    //var response = client.PostAsync("api/Vote", content);
+                    //try
+                    //{
+                    //   var data_send = await response.Result.Content.ReadAsStringAsync();
+                    //    return new VoteResponse { VoteStatus = true, Message = "Vote | Votul a fost înregistrat."};
+                    //}
+                    //catch (AggregateException e)
+                    //{
+                    //    return new VoteResponse { VoteStatus = false, Message = "Vote | Error! " + e.Message };
+                    //}
                 }
             }
 

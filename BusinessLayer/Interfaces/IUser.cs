@@ -12,6 +12,6 @@ namespace BusinessLayer.Interfaces
     {
         public Task<RegistrationResponse> Registration(RegistrationMessage registration);
         public Task<AuthResponse> Auth(AuthMessage auth);
-        public Task<VoteResponse> Vote(VoteMessage vote);
+        public Task<VoteCoreResponse> Vote(VoteMessage vote);
     }
 }
