@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog;
 
 namespace RVT_AdministratorAPI.Controllers.Users
 {
@@ -21,13 +22,12 @@ namespace RVT_AdministratorAPI.Controllers.Users
     {
         IUser user;
         private readonly IQueueConnection _queueConnection;
-
-
+        
         public IdentityController(IServiceProvider provider)
         {
             var bl = new BusinessManager();
             user = bl.GetUser();
-            //_queueConnection = provider.GetRequiredService<RabbitMQQueueConnection>();
+            _queueConnection = provider.GetRequiredService<RabbitMQQueueConnection>();
         }
 
         [HttpPost]
@@ -41,12 +41,7 @@ namespace RVT_AdministratorAPI.Controllers.Users
         [ActionName("Auth")]
         public async Task<ActionResult<AuthResponse>> AuthAct([FromBody] AuthMessage auth)
         {
-            if (ModelState.IsValid)
-            {
-                var result = await user.Auth(auth);
-                return result;
-            }
-            else return BadRequest();
+            return await user.Auth(auth);
         }
 
         [HttpPost]
@@ -55,16 +50,9 @@ namespace RVT_AdministratorAPI.Controllers.Users
         {
             var result = await user.Vote(vote);
 
-            if (result.VoteResponse.VoteStatus)
-            {
-                var body = JsonConvert.SerializeObject(result.LBMessage);
-                _queueConnection.PublishData("voteDataMsg", body);
-                return result.VoteResponse;
-            }
-
-            else return result.VoteResponse;
-
-
+            var body = JsonConvert.SerializeObject(result.LBMessage);
+            _queueConnection.PublishData("voteDataMsg", body);
+            return result.VoteResponse;
         }
     }
 }

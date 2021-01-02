@@ -79,8 +79,8 @@ namespace BusinessLayer.Implementation
             }
             catch (AggregateException e)
             {
-                _logger.Error(e.Message);
-                return new RegistrationResponse { Status = false, Message = "Error! LoadBalancer is not responding." + e.Message };
+                _logger.Error("Registration | " + e.Message);
+                return new RegistrationResponse { Status = false, Message = "Error! LoadBalancer nu răspunde." + e.Message };
             }
 
             if (regLbResponse.Status == true)
@@ -104,12 +104,11 @@ namespace BusinessLayer.Implementation
                 }
 
                 var random = new Random();
-                return new RegistrationResponse { Status = true, ConfirmKey = random.Next(12452, 87620).ToString(), Message = "Registration | IP: " + registration.Ip_address + "IDNP: " + registration.IDNP + " was registered.", IDVN = regLbResponse.IDVN, Email = registration.Email };
+                return new RegistrationResponse { Status = true, ConfirmKey = random.Next(12452, 87620).ToString(), Message = "Registration | IDNP: " + registration.IDNP + " a fost înregistrat.", IDVN = regLbResponse.IDVN, Email = registration.Email };
             }
             else
             {
-                _logger.Error("Registration | " + registration);
-                return new RegistrationResponse { Status = false, Message = "Registration | Error! User IP: " + registration.Ip_address + "IDNP: " + registration.IDNP + " can't be registered." };
+                return new RegistrationResponse { Status = false, Message = "Registration | IDNP: " + registration.IDNP + " nu a fost posibil de înregistrat" };
             }
         }
         internal async Task<AuthResponse> AuthAction(AuthMessage auth)
@@ -193,36 +192,9 @@ namespace BusinessLayer.Implementation
                             ProcessedTime = DateTime.Now
                         }
                     };
-                    //var content = new StringContent(JsonConvert.SerializeObject(chooser), Encoding.UTF8, "application/json");
-                    //            var clientCertificate =
-                    //new X509Certificate2(Path.Combine(@"..\Certs", "administrator.pfx"), "ar4iar4i"
-                    //, X509KeyStorageFlags.Exportable);
-                    // LOAD BALANCER ADD REQUEST
-
-
-
-
-                    //var handler = new HttpClientHandler();
-                    //handler.ClientCertificates.Add(clientCertificate);
-                    //handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-                    //var client = new HttpClient(handler);
-                    //client.BaseAddress = new Uri("https://localhost:44322/");
-                    //client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    //var response = client.PostAsync("api/Vote", content);
-                    //try
-                    //{
-                    //   var data_send = await response.Result.Content.ReadAsStringAsync();
-                    //    return new VoteResponse { VoteStatus = true, Message = "Vote | Votul a fost înregistrat."};
-                    //}
-                    //catch (AggregateException e)
-                    //{
-                    //    return new VoteResponse { VoteStatus = false, Message = "Vote | Error! " + e.Message };
-                    //}
+                   
                 }
             }
-
-
         }
     }
 }

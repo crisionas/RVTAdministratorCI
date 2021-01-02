@@ -10,7 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Admin\" />
+    <Compile Remove="Controllers\Admin\**" />
+    <Content Remove="Controllers\Admin\**" />
+    <EmbeddedResource Remove="Controllers\Admin\**" />
+    <None Remove="Controllers\Admin\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="AppServices\" />
   </ItemGroup>
 
