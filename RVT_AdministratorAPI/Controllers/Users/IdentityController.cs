@@ -27,19 +27,14 @@ namespace RVT_AdministratorAPI.Controllers.Users
         {
             var bl = new BusinessManager();
             user = bl.GetUser();
-            _queueConnection = provider.GetRequiredService<RabbitMQQueueConnection>();
+            //_queueConnection = provider.GetRequiredService<RabbitMQQueueConnection>();
         }
 
         [HttpPost]
         [ActionName("Registration")]
         public async Task<ActionResult<RegistrationResponse>> RegistrationAct([FromBody] RegistrationMessage registration)
-        {
-            if (ModelState.IsValid)
-            {
-                var result = await user.Registration(registration);
-                return result;
-            }
-            else return BadRequest();
+        { 
+           return await user.Registration(registration);
         }
 
         [HttpPost]

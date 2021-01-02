@@ -27,17 +27,17 @@ namespace RVT_AdministratorAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton(opt =>
-            {
-                var factory = new ConnectionFactory()
-                {
-                    HostName = Configuration["QueueHost"],
-                    UserName = Configuration["RabbitMQUsername"],
-                    Password = Configuration["RabbitMQPassword"],
-                    Port = 5672
-                };
-                return new RabbitMQQueueConnection(factory);
-            });
+            //services.AddSingleton(opt =>
+            //{
+            //    var factory = new ConnectionFactory()
+            //    {
+            //        HostName = Configuration["QueueHost"],
+            //        UserName = Configuration["RabbitMQUsername"],
+            //        Password = Configuration["RabbitMQPassword"],
+            //        Port = 5672
+            //    };
+            //    return new RabbitMQQueueConnection(factory);
+            //});
             services.AddControllers();
         }
 
@@ -61,7 +61,7 @@ namespace RVT_AdministratorAPI
             {
                 endpoints.MapControllers();
             });
-            app.UseRabbitListener();
+            //app.UseRabbitListener();
         }
     }
 

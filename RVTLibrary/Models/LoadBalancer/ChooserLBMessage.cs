@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RVTLibrary.Models.LoadBalancer
 {
-    public class ChooserLbMessage
+    public class ChooserLBMessage
     {
         public string Gender { get; set; }
         public DateTime? Birth_date { get; set; }

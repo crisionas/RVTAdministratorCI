@@ -16,5 +16,8 @@ namespace RVT_DataLayer.Entities
         public string Gender { get; set; }
         public int? YearBirth { get; set; }
         public string Idbd { get; set; }
+
+        public virtual Party PartyChoosedNavigation { get; set; }
+        public virtual Region RegionChoosedNavigation { get; set; }
     }
 }

@@ -8,7 +8,6 @@ namespace RVTLibrary.Models.Vote
     public class VoteCoreResponse
     {
         public VoteResponse VoteResponse { get; set; }
-        public ChooserLbMessage LBMessage { get; set; }
-
+        public ChooserLBMessage LBMessage { get; set; }
     }
 }

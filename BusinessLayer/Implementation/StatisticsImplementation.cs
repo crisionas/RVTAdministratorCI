@@ -42,10 +42,8 @@ namespace BusinessLayer.Implementation
                                        where st.PartyChoosed == party.IDParty &&
                                        st.RegionChoosed == Int32.Parse(id)
                                        select st).Count();
-                        party.Name = (from st in context.Parties
-                                      where st.Idpart == party.IDParty
-                                      select st.Party1).ToString();
-
+                        party.Color = context.Parties.Where(x => x.Idpart == party.IDParty).SingleOrDefault()?.Color;
+                        party.Name = context.Parties.Where(x => x.Idpart == party.IDParty).SingleOrDefault()?.Party1;
                         parties.Add(party);
                     }
                     //-----------------Population------------------
@@ -55,18 +53,18 @@ namespace BusinessLayer.Implementation
 
                     //-----------------Number of male gender voters------------------
                     gender.Male = (from st in context.Blocks
-                                   where st.Gender == "Male" &&
+                                   where st.Gender == "Masculin" &&
                                    st.RegionChoosed == Int32.Parse(id)
                                    select st).Count();
                     //-----------------Number of female gender voters------------------
                     gender.Female = (from st in context.Blocks
-                                     where st.Gender == "Female" &&
+                                     where st.Gender == "Feminin" &&
                                      st.RegionChoosed == Int32.Parse(id)
                                      select st).Count();
                 }
                 else
                 {
-                    name = "All";
+                    name = "Republica Moldova";
                     votants = (from st in context.Blocks
                                select st.BlockId).Count();
                     //-----------------Number of parties to count------------------
@@ -79,6 +77,9 @@ namespace BusinessLayer.Implementation
                         party.Votes = (from st in context.Blocks
                                        where st.PartyChoosed == party.IDParty
                                        select st).Count();
+                        party.Color = context.Parties.Where(x => x.Idpart == party.IDParty).SingleOrDefault()?.Color;
+                        party.Name = context.Parties.Where(x => x.Idpart == party.IDParty).SingleOrDefault()?.Party1;
+
                         parties.Add(party);
                     }
 
@@ -87,10 +88,10 @@ namespace BusinessLayer.Implementation
                     pending = (from st in context.IdvnAccounts
                                select st.Idvn).Count();
                     gender.Male = (from st in context.Blocks
-                                   where st.Gender == "Male"
+                                   where st.Gender == "Masculin"
                                    select st).Count();
                     gender.Female = (from st in context.Blocks
-                                     where st.Gender == "Female"
+                                     where st.Gender == "Feminin"
                                      select st).Count();
                 }
 
@@ -108,7 +109,8 @@ namespace BusinessLayer.Implementation
                 GenderStatistics = gender
             };
         }
-        
+
+
         internal async Task<StatisticsResponse> StatisticsAction(string id)
         {
             List<AgeStatistics> agesList = new List<AgeStatistics>();
@@ -135,7 +137,7 @@ namespace BusinessLayer.Implementation
                     //-----------------Count voters by ages------------------
                     //18-25
                     var age18 = new AgeStatistics();
-                        age18.Ages = "18-25";
+                    age18.Ages = "18-25";
 
                     age18.Voters = context.IdvnAccounts.Where(e => DateTime.Now.Year - e.BirthDate.Value.Year >= 18
                     && DateTime.Now.Year - e.BirthDate.Value.Year <= 25
@@ -182,18 +184,18 @@ namespace BusinessLayer.Implementation
 
                     //-----------------Number of male gender voters------------------
                     gender.Male = (from st in context.IdvnAccounts
-                                   where st.Gender == "Male" &&
+                                   where st.Gender == "Masculin" &&
                                    st.Region == Int32.Parse(id)
                                    select st).Count();
                     //-----------------Number of female gender voters------------------
                     gender.Female = (from st in context.IdvnAccounts
-                                     where st.Gender == "Female" &&
+                                     where st.Gender == "Feminin" &&
                                      st.Region == Int32.Parse(id)
                                      select st).Count();
                 }
                 else
                 {
-                    name = "All";
+                    name = "Republica Moldova";
 
                     //-----------------Population------------------
                     population = (from st in context.FiscData
@@ -234,7 +236,7 @@ namespace BusinessLayer.Implementation
 
                     //65+
                     var age65 = new AgeStatistics();
-                    age65.Ages = "65";
+                    age65.Ages = "65+";
 
                     age65.Voters = context.IdvnAccounts.Where(e => DateTime.Now.Year - e.BirthDate.Value.Year >= 65).Count().ToString();
                     agesList.Add(age65);
@@ -244,11 +246,11 @@ namespace BusinessLayer.Implementation
 
                     //-----------------Number of male gender voters------------------
                     gender.Male = (from st in context.IdvnAccounts
-                                   where st.Gender == "Male" 
+                                   where st.Gender == "Masculin"
                                    select st).Count();
                     //-----------------Number of female gender voters------------------
                     gender.Female = (from st in context.IdvnAccounts
-                                     where st.Gender == "Female" 
+                                     where st.Gender == "Feminin"
                                      select st).Count();
                 }
             }

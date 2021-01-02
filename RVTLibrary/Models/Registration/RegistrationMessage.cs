@@ -12,9 +12,6 @@ namespace RVTLibrary.Models.UserIdentity
         public string Name { get; set; }
         
         public string Surname { get; set; }
-
-        
-        public string VnPassword { get; set; }
         
         public string Gender { get; set; }
         

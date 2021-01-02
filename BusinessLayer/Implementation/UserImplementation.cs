@@ -127,10 +127,10 @@ namespace BusinessLayer.Implementation
 
                     if (verify.Result == null)
                     {
-                        return new AuthResponse { Status = false, Message = "Auth | Error! IDNP sau parola nu este corecta." };
+                        return new AuthResponse { Status = false, Message = "Error! IDNP-ul sau parola nu este corectă." };
                     }
                     else
-                        return new AuthResponse { Status = true, IDVN = idvn, Message = "Auth | Authentication Successfull!" };
+                        return new AuthResponse { Status = true, IDVN = idvn, Message = "V-ați autentificat cu succes." };
 
                 }
             }
@@ -173,7 +173,7 @@ namespace BusinessLayer.Implementation
 
                     var party = bd.Parties.FirstOrDefault(m => m.Idpart == vote.Party);
                     var user = bd.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
-                    var chooser = new ChooserLbMessage
+                    var chooser = new ChooserLBMessage
                     {
                         IDVN = user.Idvn,
                         Gender = user.Gender,
