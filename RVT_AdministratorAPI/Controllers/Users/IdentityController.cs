@@ -27,7 +27,7 @@ namespace RVT_AdministratorAPI.Controllers.Users
         {
             var bl = new BusinessManager();
             user = bl.GetUser();
-            _queueConnection = provider.GetRequiredService<RabbitMQQueueConnection>();
+            //_queueConnection = provider.GetRequiredService<RabbitMQQueueConnection>();
         }
 
         [HttpPost]

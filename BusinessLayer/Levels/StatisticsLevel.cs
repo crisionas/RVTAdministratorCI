@@ -10,14 +10,14 @@ namespace BusinessLayer.Levels
 {
     public class StatisticsLevel : StatisticsImplementation, IStatistics
     {
-        public Task<ResultsResponse> Results(string id)
+        public async Task<ResultsResponse> Results(string id)
         {
-            return ResultsAction(id);
+            return await ResultsAction(id);
         }
 
-        public Task<StatisticsResponse> Statistics(string id)
+        public async Task<StatisticsResponse> Statistics(string id)
         {
-            return StatisticsAction(id);
+            return await StatisticsAction(id);
         }
     }
 }

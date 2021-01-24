@@ -25,14 +25,16 @@ namespace RVT_AdministratorAPI.Controllers.Users
         [ActionName("Results")]
         public async Task<ActionResult<ResultsResponse>> ResultsAll([FromBody] string id)
         {
-            return await results.Results(id);
+            var result= await results.Results(id);
+            return result;
         }
 
         [HttpPost]
         [ActionName("Statistics")]
         public async Task<ActionResult<StatisticsResponse>> StatisticsAll([FromBody] string id)
         {
-            return await results.Statistics(id);
+            var result= await results.Statistics(id);
+            return result;
         }
 
     }
