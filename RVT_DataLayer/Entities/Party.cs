@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 #nullable disable
 
@@ -7,13 +9,15 @@ namespace RVT_DataLayer.Entities
 {
     public partial class Party
     {
-        public Party()
-        {
-            Blocks = new HashSet<Block>();
-        }
 
-        public int Idpart { get; set; }
-        public string Party1 { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int PartyId { get; set; }
+        [Required]
+        [StringLength(200)]
+        public string PartyName { get; set; }
+        [Required]
+        [StringLength(200)]
         public string Color { get; set; }
 
         public virtual ICollection<Block> Blocks { get; set; }

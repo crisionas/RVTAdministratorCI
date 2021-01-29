@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Interfaces;
+﻿using BusinessLayer.DBContexts;
+using BusinessLayer.Interfaces;
 using Newtonsoft.Json;
 using RVT_DataLayer.Entities;
 using RVTLibrary.Models.Vote;
@@ -22,7 +23,7 @@ namespace BusinessLayer.Implementation
                 throw e;
             }
 
-            using (var db = new SFBDContext())
+            using (var db = new SystemDBContext())
             {
                 VoteStatus voteStatus = new VoteStatus
                 {
@@ -34,12 +35,12 @@ namespace BusinessLayer.Implementation
                 {
                     BlockId = response.block.BlockId,
                     CreatedOn = (DateTime)response.block.CreatedOn,
-                    PartyChoosed = (int)response.block.PartyChoosed,
+                    PartyId = (int)response.block.PartyChoosed,
                     Gender = response.block.Gender,
                     Hash = response.block.Hash,
                     Idbd = response.block.Idbd,
                     PreviousHash = response.block.PreviousHash,
-                    RegionChoosed = (int)response.block.RegionChoosed,
+                    RegionId = (int)response.block.RegionChoosed,
                     YearBirth = (int)response.block.YearBirth
                 };
                 using(var transaction = db.Database.BeginTransaction())

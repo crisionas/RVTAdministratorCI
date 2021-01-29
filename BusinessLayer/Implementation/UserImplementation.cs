@@ -18,6 +18,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RVTLibrary.Models.Vote;
 using System.Linq;
+using BusinessLayer.DBContexts;
 
 namespace BusinessLayer.Implementation
 {
@@ -31,12 +32,12 @@ namespace BusinessLayer.Implementation
             return await Task.Run(() =>
             {
                 var config = new MapperConfiguration(cfg =>
-                  cfg.CreateMap<RegistrationMessage, FiscDatum>());
+                  cfg.CreateMap<RegistrationMessage, FiscData>());
                 var mapper = new Mapper(config);
-                var fiscregistration = mapper.Map<FiscDatum>(registration);
+                var fiscregistration = mapper.Map<FiscData>(registration);
                 fiscregistration.BirthDate = registration.Birth_date;
                 //Verify if registration registration are valid.
-                using (var db = new SFBDContext())
+                using (var db = new SystemDBContext())
                 {
                     try
                     {
@@ -89,7 +90,7 @@ namespace BusinessLayer.Implementation
                     ///-------SEND EMAIL WITH PASSWORD------
                     EmailSender.Send(registration.Email, regLbResponse.VnPassword);
 
-                    using (var db = new SFBDContext())
+                    using (var db = new SystemDBContext())
                     {
                         var account = new IdvnAccount();
                         account.Idvn = regLbResponse.IDVN;
@@ -123,7 +124,7 @@ namespace BusinessLayer.Implementation
                     var pass = LoginHelper.HashGen(auth.VnPassword);
                     var idvn = IDVN_Gen.HashGen(auth.VnPassword + auth.IDNP);
 
-                    using (var db = new SFBDContext())
+                    using (var db = new SystemDBContext())
                     {
                         var verify = db.IdvnAccounts.FirstOrDefaultAsync(x =>
                             x.Idvn == idvn &&
@@ -153,7 +154,7 @@ namespace BusinessLayer.Implementation
             {
                 try
                 {
-                    using (var bd = new SFBDContext())
+                    using (var bd = new SystemDBContext())
                     {
                         var account = bd.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
                         if (account == null)
@@ -182,7 +183,7 @@ namespace BusinessLayer.Implementation
                                     LBMessage = null
                                 };
 
-                            var party = bd.Parties.FirstOrDefault(m => m.Idpart == vote.Party);
+                            var party = bd.Parties.FirstOrDefault(m => m.PartyId == vote.Party);
                             var user = bd.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
                             var chooser = new ChooserLBMessage
                             {
@@ -190,7 +191,7 @@ namespace BusinessLayer.Implementation
                                 Gender = user.Gender,
                                 Birth_date = user.BirthDate,
                                 PartyChoosed = vote.Party,
-                                Region = user.Region,
+                                Region = user.RegionId,
                                 Vote_date = DateTime.Now
                             };
 
