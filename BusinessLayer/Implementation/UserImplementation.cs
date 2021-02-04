@@ -41,14 +41,14 @@ namespace BusinessLayer.Implementation
                 {
                     try
                     {
-                        var fisc = db.FiscData.FirstOrDefaultAsync(x =>
+                        var fisc =  db.FiscData.FirstOrDefaultAsync(x =>
                    x.Idnp == fiscregistration.Idnp &&
                    x.Gender == fiscregistration.Gender &&
                    x.Region.Contains(fiscregistration.Region) &&
                    x.Surname == fiscregistration.Surname &&
                    x.Name == fiscregistration.Name &&
                    x.BirthDate == fiscregistration.BirthDate);
-                        if (fisc == null)
+                        if (fisc.Result == null)
                         {
                             return new RegistrationResponse { Status = false, Message = "Datele introduse nu sunt correcte." };
                         }
@@ -126,16 +126,21 @@ namespace BusinessLayer.Implementation
 
                     using (var db = new SystemDBContext())
                     {
-                        var verify = db.IdvnAccounts.FirstOrDefaultAsync(x =>
+                        var verify = db.IdvnAccounts.FirstOrDefault(x =>
                             x.Idvn == idvn &&
                             x.VnPassword == pass);
-
-                        if (verify.Result == null)
+                        var vote_state = db.VoteStatuses.FirstOrDefault(m => m.Idvn == idvn);
+                        if (verify == null)
                         {
                             return new AuthResponse { Status = false, Message = "Error! IDNP-ul sau parola nu este corectă." };
                         }
-                        else
-                            return new AuthResponse { Status = true, IDVN = idvn, Message = "V-ați autentificat cu succes." };
+                        if (vote_state != null)
+                            return new AuthResponse
+                            {
+                                Status = false,
+                                Message = "Vote | Ați votat deja, nu este posibil de votat de două ori."
+                            };
+                        return new AuthResponse { Status = true, IDVN = idvn, Message = "V-ați autentificat cu succes." };
 
                     }
                 }
