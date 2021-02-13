@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RVTLibrary.Models.LoadBalancer
 {
-    public class RegLBResponse
+    public class NodeRegResponse
     {
         public bool Status { get; set; }
         public string Message { get; set; }

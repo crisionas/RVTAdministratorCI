@@ -35,9 +35,8 @@ namespace BusinessLayer.Implementation
                                 where st.RegionId == Int32.Parse(id)
                                 select st.BlockId).Count();
                             name = (from st in context.Regions
-                                where st.RegiondId == Int32.Parse(id)
-                                select st.RegionName).Single().ToString();
-
+                                    where st.RegiondId == Int32.Parse(id)
+                                    select st.RegionName).Single().ToString();
 
                             //-----------------Number of parties to count------------------
                             for (int i = 1; i <= context.Parties.Count(); i++)

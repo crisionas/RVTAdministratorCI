@@ -41,13 +41,13 @@ namespace BusinessLayer.Implementation
                 {
                     try
                     {
-                        var fisc =  db.FiscData.FirstOrDefaultAsync(x =>
-                   x.Idnp == fiscregistration.Idnp &&
-                   x.Gender == fiscregistration.Gender &&
-                   x.Region.Contains(fiscregistration.Region) &&
-                   x.Surname == fiscregistration.Surname &&
-                   x.Name == fiscregistration.Name &&
-                   x.BirthDate == fiscregistration.BirthDate);
+                        var fisc = db.FiscData.FirstOrDefaultAsync(x =>
+                  x.Idnp == fiscregistration.Idnp &&
+                  x.Gender == fiscregistration.Gender &&
+                  x.Region.Contains(fiscregistration.Region) &&
+                  x.Surname == fiscregistration.Surname &&
+                  x.Name == fiscregistration.Name &&
+                  x.BirthDate == fiscregistration.BirthDate);
                         if (fisc.Result == null)
                         {
                             return new RegistrationResponse { Status = false, Message = "Datele introduse nu sunt correcte." };
@@ -61,28 +61,29 @@ namespace BusinessLayer.Implementation
 
                 //Send registration to LoadBalancer
                 var content = new StringContent(JsonConvert.SerializeObject(registration), Encoding.UTF8, "application/json");
-                var clientCertificate = new X509Certificate2(Path.Combine(@"..\Certs", "administrator.pfx"), "ar4iar4i"
-                    , X509KeyStorageFlags.Exportable);
+                //var clientCertificate = new X509Certificate2(Path.Combine(@"..\Certs", "administrator.pfx"), "ar4iar4i", X509KeyStorageFlags.Exportable);
 
-                var handler = new HttpClientHandler();
-                handler.ClientCertificates.Add(clientCertificate);
-                handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-                var client = new HttpClient(handler);
-                client.BaseAddress = new Uri("https://localhost:44322/");
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                var response =  client.PostAsync("api/Regist", content);
-
-                var regLbResponse = new RegLBResponse();
-                try
+                //var handler = new HttpClientHandler();
+                //handler.ClientCertificates.Add(clientCertificate);
+                // handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                var regLbResponse = new NodeRegResponse();
+                using (var client = new HttpClient())
                 {
-                    var registration_resp =  response.Result.Content.ReadAsStringAsync().Result;
-                    regLbResponse = JsonConvert.DeserializeObject<RegLBResponse>(registration_resp);
-                }
-                catch (AggregateException e)
-                {
-                    _logger.Error("Registration | " + e.Message);
-                    return new RegistrationResponse { Status = false, Message = "Error! LoadBalancer nu răspunde." + e.Message };
+                    client.BaseAddress = new Uri("https://localhost:44322/");
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var response = client.PostAsync("api/Regist", content);
+
+                    try
+                    {
+                        var registration_resp = response.Result.Content.ReadAsStringAsync().Result;
+                        regLbResponse = JsonConvert.DeserializeObject<NodeRegResponse>(registration_resp);
+                    }
+                    catch (AggregateException e)
+                    {
+                        _logger.Error("Registration | " + e.Message);
+                        return new RegistrationResponse { Status = false, Message = "Error! LoadBalancer nu răspunde." + e.Message };
+                    }
                 }
 
                 if (regLbResponse.Status == true)
@@ -113,7 +114,7 @@ namespace BusinessLayer.Implementation
                     return new RegistrationResponse { Status = false, Message = "Registration | IDNP: " + registration.IDNP + " nu a fost posibil de înregistrat" };
                 }
             });
-            
+
         }
         internal async Task<AuthResponse> AuthAction(AuthMessage auth)
         {
