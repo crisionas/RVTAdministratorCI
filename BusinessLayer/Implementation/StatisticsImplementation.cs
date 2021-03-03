@@ -163,7 +163,7 @@ namespace BusinessLayer.Implementation
                             age18.Voters = context.IdvnAccounts.Where(e => DateTime.Now.Year - e.BirthDate.Year >= 18
                                                                            && DateTime.Now.Year - e.BirthDate.Year <=
                                                                            25
-                                                                           && e.Region.ToString() == id).Count().ToString();
+                                                                           && e.Region.RegiondId.ToString() == id).Count().ToString();
                             agesList.Add(age18);
 
                             //26-40
@@ -173,7 +173,7 @@ namespace BusinessLayer.Implementation
                             age26.Voters = context.IdvnAccounts.Where(e => DateTime.Now.Year - e.BirthDate.Year >= 26
                                                                            && DateTime.Now.Year - e.BirthDate.Year <=
                                                                            40
-                                                                           && e.Region.ToString() == id).Count().ToString();
+                                                                           && e.Region.RegiondId.ToString() == id).Count().ToString();
                             agesList.Add(age26);
 
                             //41-50
@@ -183,7 +183,7 @@ namespace BusinessLayer.Implementation
                             age41.Voters = context.IdvnAccounts.Where(e => DateTime.Now.Year - e.BirthDate.Year >= 41
                                                                            && DateTime.Now.Year - e.BirthDate.Year <=
                                                                            50
-                                                                           && e.Region.ToString() == id).Count().ToString();
+                                                                           && e.Region.RegiondId.ToString() == id).Count().ToString();
                             agesList.Add(age41);
 
                             //51-64
@@ -193,7 +193,7 @@ namespace BusinessLayer.Implementation
                             age51.Voters = context.IdvnAccounts.Where(e => DateTime.Now.Year - e.BirthDate.Year >= 51
                                                                            && DateTime.Now.Year - e.BirthDate.Year <=
                                                                            65
-                                                                           && e.Region.ToString() == id).Count().ToString();
+                                                                           && e.Region.RegiondId.ToString() == id).Count().ToString();
                             agesList.Add(age51);
 
                             //65+
@@ -201,11 +201,11 @@ namespace BusinessLayer.Implementation
                             age65.Ages = "65";
 
                             age65.Voters = context.IdvnAccounts.Where(e => DateTime.Now.Year - e.BirthDate.Year >= 65
-                                                                           && e.Region.ToString() == id).Count().ToString();
+                                                                           && e.Region.RegiondId.ToString() == id).Count().ToString();
                             agesList.Add(age65);
 
                             //-----------------Population------------------
-                            votants = context.IdvnAccounts.Where(e => e.Region.ToString() == id).Count();
+                            votants = context.IdvnAccounts.Where(e => e.Region.RegiondId.ToString() == id).Count();
 
                             //-----------------Number of male gender voters------------------
                             gender.Male = (from st in context.IdvnAccounts
