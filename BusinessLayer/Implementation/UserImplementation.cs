@@ -25,7 +25,7 @@ namespace BusinessLayer.Implementation
 
     public class UserImplementation
     {
-        private static Logger _logger = LogManager.GetLogger("UserLog");
+        Logger logger = LogManager.GetLogger("UserLog");
 
         internal async Task<RegistrationResponse> RegistrationAction(RegistrationMessage registration)
         {
@@ -55,7 +55,7 @@ namespace BusinessLayer.Implementation
                     }
                     catch (Exception e)
                     {
-                        _logger.Error("Registration | " + e.Message);
+                        logger.Error("Registration | "+registration.IDNP+" "+e.Message);
                     }
                 }
 
@@ -81,7 +81,7 @@ namespace BusinessLayer.Implementation
                     }
                     catch (AggregateException e)
                     {
-                        _logger.Error("Registration | " + e.Message);
+                        logger.Error("Registration |" +registration.IDNP+" "+e.Message);
                         return new RegistrationResponse { Status = false, Message = "Error! LoadBalancer nu răspunde." + e.Message };
                     }
                 }
@@ -147,7 +147,8 @@ namespace BusinessLayer.Implementation
                 }
                 catch (Exception e)
                 {
-                    _logger.Error("Auth | Error! " + e.Message);
+
+                    logger.Error("Auth |"+auth.IDNP+" "+e.Message);
                     return new AuthResponse { Status = false, Message = "Auth | " + e.Message };
                 }
             });
@@ -217,7 +218,7 @@ namespace BusinessLayer.Implementation
                 }
                 catch (Exception e)
                 {
-                    _logger.Error("Vote | Error! " + e.Message);
+                    logger.Error("Vote | "+vote.IDVN+" "+e.Message);
                     return new VoteCoreResponse
                     {
                         VoteResponse = new VoteResponse

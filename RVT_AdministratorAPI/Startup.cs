@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using RabbitMQ.Client;
 using RVT_AdministratorAPI.AppServices;
 using System;
@@ -39,6 +40,15 @@ namespace RVT_AdministratorAPI
             //    return new RabbitMQQueueConnection(factory);
             //});
             services.AddControllers();
+
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Swagger API",
+                    Version = "v1"
+                });
+            });
         }
 
 
@@ -50,7 +60,7 @@ namespace RVT_AdministratorAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+           
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -62,6 +72,13 @@ namespace RVT_AdministratorAPI
                 endpoints.MapControllers();
             });
             //app.UseRabbitListener();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger API");
+            });
         }
     }
 

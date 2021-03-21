@@ -14,6 +14,7 @@ namespace BusinessLayer.Implementation
     {
         private static Logger _logger = LogManager.GetLogger("UserLog");
 
+
         internal async Task<ResultsResponse> ResultsAction(string id)
         {
             return await Task.Run(() =>
@@ -112,7 +113,7 @@ namespace BusinessLayer.Implementation
 
                 catch (Exception e)
                 {
-                    _logger.Error("Results | " + e.Message);
+                    _logger.Error("Results | "+e.Message);
                 }
 
                 return new ResultsResponse
@@ -287,7 +288,7 @@ namespace BusinessLayer.Implementation
                 }
                 catch (Exception e)
                 {
-                    _logger.Error("Statistics | " + e.Message);
+                    _logger.Error("Statistics |"+e.Message);
                 }
 
                 return new StatisticsResponse

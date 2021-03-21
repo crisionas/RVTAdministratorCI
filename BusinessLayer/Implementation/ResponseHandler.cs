@@ -1,6 +1,7 @@
 ﻿using BusinessLayer.DBContexts;
 using BusinessLayer.Interfaces;
 using Newtonsoft.Json;
+using NLog;
 using RVT_DataLayer.Entities;
 using RVTLibrary.Models.Vote;
 using System;
@@ -11,6 +12,9 @@ namespace BusinessLayer.Implementation
 {
     public class ResponseHandler : IResponseHandler
     {
+
+        private static Logger _logger = LogManager.GetLogger("UserLog");
+
         public void PrepareVoteResponse(string content)
         {
             NodeVoteResponse response;
@@ -20,6 +24,7 @@ namespace BusinessLayer.Implementation
             }
             catch(JsonException e)
             {
+                _logger.Error(e);
                 throw e;
             }
 
@@ -52,9 +57,11 @@ namespace BusinessLayer.Implementation
                         db.Add(block);
                         db.SaveChanges();
                         transaction.Commit();
-                    }catch(Exception e)
+                    }
+                    catch (Exception e)
                     {
                         transaction.Rollback();
+                        _logger.Error(e);
                         Console.WriteLine(e);
                     }
                 }
