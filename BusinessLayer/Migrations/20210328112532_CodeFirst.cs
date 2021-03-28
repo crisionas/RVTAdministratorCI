@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BusinessLayer.Migrations
 {
-    public partial class initdb : Migration
+    public partial class CodeFirst : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

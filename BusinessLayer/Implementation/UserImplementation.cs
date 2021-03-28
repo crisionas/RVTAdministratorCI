@@ -82,7 +82,7 @@ namespace BusinessLayer.Implementation
                     catch (AggregateException e)
                     {
                         logger.Error("Registration |" +registration.IDNP+" "+e.Message);
-                        return new RegistrationResponse { Status = false, Message = "Error! LoadBalancer nu răspunde." + e.Message };
+                        return new RegistrationResponse { Status = false, Message = "Error! Sistemul nu funcționează la moment reveniți mai târziu"};
                     }
                 }
 
@@ -107,11 +107,11 @@ namespace BusinessLayer.Implementation
                     }
 
                     var random = new Random();
-                    return new RegistrationResponse { Status = true, ConfirmKey = random.Next(12452, 87620).ToString(), Message = "Registration | IDNP: " + registration.IDNP + " a fost înregistrat.", IDVN = regLbResponse.IDVN, Email = registration.Email };
+                    return new RegistrationResponse { Status = true, ConfirmKey = random.Next(12452, 87620).ToString(), Message = "Înregistrare | IDNP: " + registration.IDNP + " a fost înregistrat.", IDVN = regLbResponse.IDVN, Email = registration.Email };
                 }
                 else
                 {
-                    return new RegistrationResponse { Status = false, Message = "Registration | IDNP: " + registration.IDNP + " nu a fost posibil de înregistrat" };
+                    return new RegistrationResponse { Status = false, Message = "Înregistrare | IDNP: " + registration.IDNP + " nu a fost posibil de înregistrat" };
                 }
             });
 
