@@ -30,12 +30,6 @@ namespace RVT_AdministratorAPI.Controllers.Users
             //_queueConnection = provider.GetRequiredService<RabbitMQQueueConnection>();
         }
 
-        public IdentityController()
-        {
-            var bl = new BusinessManager();
-            user = bl.GetUser();
-        }
-
         [HttpPost]
         [ActionName("Registration")]
         public async Task<ActionResult<RegistrationResponse>> RegistrationAct([FromBody] RegistrationMessage registration)

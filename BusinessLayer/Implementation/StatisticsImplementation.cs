@@ -17,7 +17,7 @@ namespace BusinessLayer.Implementation
 
         internal async Task<ResultsResponse> ResultsAction(string id)
         {
-            return await Task.Run(() =>
+            return await Task.Run(async() =>
             {
                 List<VoteStatistics> parties = new List<VoteStatistics>();
                 int votants = 0;
@@ -35,7 +35,7 @@ namespace BusinessLayer.Implementation
                             votants = (from st in context.Blocks
                                 where st.RegionId == Int32.Parse(id)
                                 select st.BlockId).Count();
-                            name = (from st in context.Regions
+                            name =  (from st in context.Regions
                                     where st.RegiondId == Int32.Parse(id)
                                     select st.RegionName).Single().ToString();
 

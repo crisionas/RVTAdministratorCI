@@ -29,7 +29,7 @@ namespace BusinessLayer.Implementation
 
         internal async Task<RegistrationResponse> RegistrationAction(RegistrationMessage registration)
         {
-            return await Task.Run(() =>
+            return await Task.Run(async () =>
             {
                 var config = new MapperConfiguration(cfg =>
                   cfg.CreateMap<RegistrationMessage, FiscData>());
@@ -41,14 +41,14 @@ namespace BusinessLayer.Implementation
                 {
                     try
                     {
-                        var fisc = db.FiscData.FirstOrDefaultAsync(x =>
+                        var fisc = await db.FiscData.FirstOrDefaultAsync(x =>
                   x.Idnp == fiscregistration.Idnp &&
                   x.Gender == fiscregistration.Gender &&
                   x.Region.Contains(fiscregistration.Region) &&
                   x.Surname == fiscregistration.Surname &&
                   x.Name == fiscregistration.Name &&
                   x.BirthDate == fiscregistration.BirthDate);
-                        if (fisc.Result == null)
+                        if (fisc == null)
                         {
                             return new RegistrationResponse { Status = false, Message = "Datele introduse nu sunt correcte." };
                         }
@@ -69,14 +69,13 @@ namespace BusinessLayer.Implementation
                 var regLbResponse = new NodeRegResponse();
                 using (var client = new HttpClient())
                 {
-                    client.BaseAddress = new Uri("https://localhost:44322/");
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-                    var response = client.PostAsync("api/Regist", content);
-
                     try
                     {
-                        var registration_resp = response.Result.Content.ReadAsStringAsync().Result;
+                        client.BaseAddress = new Uri("https://localhost:44322/");
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        var response = client.PostAsync("api/Regist", content);
+                        var registration_resp = await response.Result.Content.ReadAsStringAsync();
                         regLbResponse = JsonConvert.DeserializeObject<NodeRegResponse>(registration_resp);
                     }
                     catch (AggregateException e)
@@ -118,7 +117,7 @@ namespace BusinessLayer.Implementation
         }
         internal async Task<AuthResponse> AuthAction(AuthMessage auth)
         {
-            return await Task.Run(() =>
+            return await Task.Run(async () =>
             {
                 try
                 {
@@ -127,10 +126,8 @@ namespace BusinessLayer.Implementation
 
                     using (var db = new SystemDBContext())
                     {
-                        var verify = db.IdvnAccounts.FirstOrDefault(x =>
-                            x.Idvn == idvn &&
-                            x.VnPassword == pass);
-                        var vote_state = db.VoteStatuses.FirstOrDefault(m => m.Idvn == idvn);
+                        var verify = await db.IdvnAccounts.FirstOrDefaultAsync(x => x.Idvn == idvn &&  x.VnPassword == pass);
+                        var vote_state = await db.VoteStatuses.FirstOrDefaultAsync(m => m.Idvn == idvn);
                         if (verify == null)
                         {
                             return new AuthResponse { Status = false, Message = "Error! IDNP-ul sau parola nu este corectă." };
@@ -157,13 +154,13 @@ namespace BusinessLayer.Implementation
 
         internal async Task<VoteCoreResponse> VoteAction(VoteMessage vote)
         {
-            return await Task.Run(() =>
+            return await Task.Run(async() =>
             {
                 try
                 {
                     using (var bd = new SystemDBContext())
                     {
-                        var account = bd.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
+                        var account = await bd.IdvnAccounts.FirstOrDefaultAsync(m => m.Idvn == vote.IDVN);
                         if (account == null)
                             return new VoteCoreResponse
                             {
@@ -177,7 +174,7 @@ namespace BusinessLayer.Implementation
                             };
                         else
                         {
-                            var vote_state = bd.VoteStatuses.FirstOrDefault(m => m.Idvn == vote.IDVN);
+                            var vote_state = await bd.VoteStatuses.FirstOrDefaultAsync(m => m.Idvn == vote.IDVN);
                             if (vote_state != null)
                                 return new VoteCoreResponse
                                 {
@@ -190,8 +187,8 @@ namespace BusinessLayer.Implementation
                                     LBMessage = null
                                 };
 
-                            var party = bd.Parties.FirstOrDefault(m => m.PartyId == vote.Party);
-                            var user = bd.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
+                            var party = await bd.Parties.FirstOrDefaultAsync(m => m.PartyId == vote.Party);
+                            var user =await bd.IdvnAccounts.FirstOrDefaultAsync(m => m.Idvn == vote.IDVN);
                             var chooser = new ChooserLBMessage
                             {
                                 IDVN = user.Idvn,
