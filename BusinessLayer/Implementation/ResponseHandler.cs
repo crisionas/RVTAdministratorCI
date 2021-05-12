@@ -1,11 +1,13 @@
 ﻿using BusinessLayer.DBContexts;
 using BusinessLayer.Interfaces;
+using BusinessLayer.Services;
 using Newtonsoft.Json;
 using NLog;
 using RVT_DataLayer.Entities;
 using RVTLibrary.Models.Vote;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace BusinessLayer.Implementation
@@ -21,8 +23,9 @@ namespace BusinessLayer.Implementation
             try
             {
                 response = JsonConvert.DeserializeObject<NodeVoteResponse>(content);
+                SendMessage(response);
             }
-            catch(JsonException e)
+            catch (JsonException e)
             {
                 _logger.Error(e);
                 throw e;
@@ -48,7 +51,7 @@ namespace BusinessLayer.Implementation
                     RegionId = (int)response.block.RegionChoosed,
                     YearBirth = (int)response.block.YearBirth
                 };
-                using(var transaction = db.Database.BeginTransaction())
+                using (var transaction = db.Database.BeginTransaction())
                 {
                     try
                     {
@@ -66,7 +69,41 @@ namespace BusinessLayer.Implementation
                     }
                 }
             }
+        }
 
+        public void SendMessage(NodeVoteResponse vote)
+        {
+            if (vote.Status)
+            {
+                using (var db = new SystemDBContext())
+                {
+                    try
+                    {
+                        var user = db.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
+                        var votestatus = new VoteStatus { Idvn = vote.IDVN, VoteState = "Confirmed" };
+                        db.Add(votestatus);
+                        db.SaveChanges();
+                        EmailSender.SendVoteResponse(user.Email, "Votul dumneavoastră a fost înregistrat cu succes!");
+                    }
+                    catch (Exception)
+                    {}
+                }
+            }
+            else
+            {
+                using (var db = new SystemDBContext())
+                {
+                    try
+                    {
+                        var user = db.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
+                        db.Remove(user);
+                        db.SaveChanges();
+                        EmailSender.SendVoteResponse(user.Email, "Votul dumneavoastră nu a fost înregistrat cu succes. Vă rugăm să încercați din nou!");
+                    }
+                    catch (Exception)
+                    {}
+                }
+            }
         }
     }
 }
