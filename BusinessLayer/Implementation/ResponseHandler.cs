@@ -80,13 +80,10 @@ namespace BusinessLayer.Implementation
                     try
                     {
                         var user = db.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
-                        var votestatus = new VoteStatus { Idvn = vote.IDVN, VoteState = "Confirmed" };
-                        db.Add(votestatus);
-                        db.SaveChanges();
                         EmailSender.SendVoteResponse(user.Email, "Votul dumneavoastră a fost înregistrat cu succes!");
                     }
                     catch (Exception)
-                    {}
+                    { }
                 }
             }
             else
@@ -96,12 +93,10 @@ namespace BusinessLayer.Implementation
                     try
                     {
                         var user = db.IdvnAccounts.FirstOrDefault(m => m.Idvn == vote.IDVN);
-                        db.Remove(user);
-                        db.SaveChanges();
                         EmailSender.SendVoteResponse(user.Email, "Votul dumneavoastră nu a fost înregistrat cu succes. Vă rugăm să încercați din nou!");
                     }
                     catch (Exception)
-                    {}
+                    { }
                 }
             }
         }
