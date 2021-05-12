@@ -61,18 +61,18 @@ namespace BusinessLayer.Implementation
 
                 //Send registration to LoadBalancer
                 var content = new StringContent(JsonConvert.SerializeObject(registration), Encoding.UTF8, "application/json");
-                //var clientCertificate = new X509Certificate2(Path.Combine(@"..\Certs", "administrator.pfx"), "ar4iar4i", X509KeyStorageFlags.Exportable);
+                var clientCertificate = new X509Certificate2(Path.Combine(@"..\Certs", "administrator.pfx"), "ar4iar4i", X509KeyStorageFlags.Exportable);
 
-                //var handler = new HttpClientHandler();
-                //handler.ClientCertificates.Add(clientCertificate);
-                // handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+                var handler = new HttpClientHandler();
+                handler.ClientCertificates.Add(clientCertificate);
+                handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
                 var regLbResponse = new NodeRegResponse();
-                using (var client = new HttpClient())
+                using (var client = new HttpClient(handler))
                 {
                     try
                     {
                         client.BaseAddress = new Uri("https://localhost:44322/");
-                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                         var response = client.PostAsync("api/Regist", content);
                         var registration_resp = await response.Result.Content.ReadAsStringAsync();
@@ -80,8 +80,8 @@ namespace BusinessLayer.Implementation
                     }
                     catch (AggregateException e)
                     {
-                        logger.Error("Registration |" +registration.IDNP+" "+e.Message);
-                        return new RegistrationResponse { Status = false, Message = "Error! Sistemul nu funcționează la moment reveniți mai târziu"};
+                        logger.Error("Registration |" + registration.IDNP + " " + e.Message);
+                        return new RegistrationResponse { Status = false, Message = "Error! Sistemul nu funcționează la moment reveniți mai târziu" };
                     }
                 }
 
@@ -99,10 +99,17 @@ namespace BusinessLayer.Implementation
                         account.IpAddress = registration.Ip_address;
                         account.PhoneNumber = registration.Phone_Number;
                         account.Email = registration.Email;
-
+                        account.Gender = registration.Gender;
+                        account.Region = db.Regions.FirstOrDefault(m => m.RegionName == registration.Region);
                         db.Add(account);
-                        db.SaveChanges();
-
+                        try
+                        {
+                               db.SaveChanges();
+                        }
+                        catch(Exception e)
+                        {
+                            
+                        }
                     }
 
                     var random = new Random();

@@ -27,7 +27,7 @@ namespace RVT_AdministratorAPI.Controllers.Users
            
             var bl = new BusinessManager();
             user = bl.GetUser();
-            //_queueConnection = provider.GetRequiredService<RabbitMQQueueConnection>();
+            _queueConnection = provider.GetRequiredService<RabbitMQQueueConnection>();
         }
 
         [HttpPost]
@@ -51,7 +51,7 @@ namespace RVT_AdministratorAPI.Controllers.Users
             var result = await user.Vote(vote);
 
             var body = JsonConvert.SerializeObject(result.LBMessage);
-            //_queueConnection.PublishData("voteDataMsg", body);
+            _queueConnection.PublishData("voteDataMsg", body);
             return result.VoteResponse;
         }
     }
