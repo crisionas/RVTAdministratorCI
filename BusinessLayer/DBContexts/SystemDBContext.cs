@@ -28,7 +28,7 @@ namespace BusinessLayer.DBContexts
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=DESKTOP-GDI15RS\\SQLEXPRESS;Database=SystemDB;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=SystemDB;Trusted_Connection=True;");
             }
         }
 

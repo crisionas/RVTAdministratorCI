@@ -8,20 +8,32 @@ namespace BusinessLayer.Services
 {
     public class EmailSender
     {
+        private const string username = "rvtvote@gmail.com";
+        private const string password = "Ialoveni1";
         public static void Send(string email, string pass)
         {
-            // Who send?
             MailAddress From = new MailAddress("rvtvote@gmail.com", "RVT Vote");
-            string utilizator = "rvtvote@gmail.com";
-            string password = "Ialoveni1";
-            // where to send?
             MailAddress To = new MailAddress(email);
             MailMessage msg = new MailMessage(From, To);
-            msg.Subject = "Registration - RVT";
-            msg.Body = "Registration Code - " + pass;
+            msg.Subject = "Înregistrare - RVT";
+            msg.Body = "Codul de înregistrare - " + pass;
             msg.IsBodyHtml = true;
             SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-            smtp.Credentials = new NetworkCredential(utilizator, password);
+            smtp.Credentials = new NetworkCredential(username, password);
+            smtp.EnableSsl = true;
+            smtp.Send(msg);
+        }
+
+        public static void SendVoteResponse(string email, string message)
+        {
+            MailAddress From = new MailAddress("rvtvote@gmail.com", "RVT Vote");
+            MailAddress To = new MailAddress(email);
+            MailMessage msg = new MailMessage(From, To);
+            msg.Subject = "Răspunsul de votare - RVT";
+            msg.Body = message;
+            msg.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
+            smtp.Credentials = new NetworkCredential(username, password);
             smtp.EnableSsl = true;
             smtp.Send(msg);
         }
