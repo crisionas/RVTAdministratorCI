@@ -38,7 +38,7 @@ namespace BusinessLayer.Implementation
 
                 Block block = new Block
                 {
-                    BlockId = response.block.BlockId,
+                  //  BlockId = response.block.BlockId,
                     CreatedOn = (DateTime)response.block.CreatedOn,
                     PartyId = (int)response.block.PartyChoosed,
                     Gender = response.block.Gender,
@@ -46,7 +46,7 @@ namespace BusinessLayer.Implementation
                     Idbd = response.block.Idbd,
                     PreviousHash = response.block.PreviousHash,
                     RegionId = (int)response.block.RegionChoosed,
-                    YearBirth = (int)response.block.YearBirth
+                    YearBirth  = 1999// (int)response.block.YearBirth
                 };
                 using(var transaction = db.Database.BeginTransaction())
                 {
